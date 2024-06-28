@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Delete Issue</title>
+</head>
+<body>
+    <h2>Delete Issue</h2>
+    <p>Are you sure you want to delete the issue "{{ issue.title }}"?</p>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit">Yes, delete</button>
+        <a href="{% url 'trouble_app:issue_list' %}">Cancel</a>
+    </form>
+</body>
+</html>
+
+{% endblock %}
+
+    <ul>
+        {% for issue in issues %}
+            <li>{{ issue.title }}</li>
+        {% endfor %}
+    </ul>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Priority</th>
+                <th>Status</th>
+                <th>Assigned To</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for issue in issues %}
+                <tr>
+                    <td><a href="{% url 'issue_detail' issue.id %}">{{ issue.title }}</a></td>
+                    <td>{{ issue.description }}</td>
+                    <td>{{ issue.get_priority_display }}</td>
+                    <td>{{ issue.get_status_display }}</td>
+                    <td>{{ issue.assigned_to }}</td>
+                    <td>
+                        <a href="{% url 'trouble_app:create_confirm_delete' issue.id %}">Delete</a>
+                  </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

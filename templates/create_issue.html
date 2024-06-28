@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Create Issue</title>
+</head>
+<body>
+    <h2>Create Issue</h2>
+    <form method="post" action="{% url 'create_issue' %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Submit</button>
+    </form> 
+</body>
+</html>
